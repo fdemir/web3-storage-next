@@ -31,10 +31,6 @@ const SocketProvider: React.FC = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("dsadas");
-  }, []);
-
   const value = {
     socket,
   };
