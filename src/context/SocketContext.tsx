@@ -14,7 +14,7 @@ const SocketProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     const initSocket = () => {
-      const client = io("http://localhost:3000", {
+      const client = io(window.location.origin, {
         path: "/api/socketio",
       });
 
