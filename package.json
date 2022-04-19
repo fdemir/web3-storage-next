@@ -7,7 +7,8 @@
     "build:server": "tsc --project tsconfig.server.json",
     "build:next": "next build",
     "build": "npm run build:next && npm run build:server",
-    "start": "NODE_ENV=production node dist/index.js"
+    "start": "NODE_ENV=production node dist/index.js",
+    "test:open": "cypress open"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.1.0",
@@ -28,6 +29,7 @@
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.2",
     "autoprefixer": "^10.4.4",
+    "cypress": "^9.5.4",
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.4",
     "postcss": "^8.4.12",
@@ -37,6 +39,6 @@
     "typescript": "4.6.3"
   },
   "engines": {
-    "node": "16.4.2"
+    "node": ">= 16.0.0"
   }
 }
