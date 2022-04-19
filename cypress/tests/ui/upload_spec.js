@@ -4,16 +4,12 @@ describe("user upload file", () => {
   it("users can upload file", () => {
     cy.visit("/");
 
+    cy.intercept("GET", "*/api/socketio*").as("socketio");
+
+    cy.waitFor("@socketio");
+
     cy.get("input[type=file]").attachFile("upload.json");
-
-    cy.get("#upload-form").submit();
-
-    cy.get("#upload-form button").should("be.disabled");
-
-    cy.intercept("POST", "*/api/upload").as("uploadFile");
-
-    cy.get("@uploadFile").then((response) => {
-      console.log(response);
-    });
+    cy.get("#upload-form button[type=submit]").click();
+    cy.get("#upload-form button[type=submit]").should("be.disabled");
   });
 });
