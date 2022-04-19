@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLogger } from "~/context/LoggerContext";
 import { useSocket } from "~/context/SocketContext";
 import request from "~/providers/request";
@@ -7,9 +7,12 @@ interface useUploadParams {
   onSuccess?: (data?: any) => void;
 }
 
+type Statusses = "loading" | "error" | "idle";
+
 function useUpload({ onSuccess }: useUploadParams = {}) {
   const { addLog } = useLogger();
   const { socket } = useSocket();
+  const [status, setStatus] = useState<Statusses>("idle");
 
   useEffect(() => {
     if (!socket) return;
@@ -39,6 +42,7 @@ function useUpload({ onSuccess }: useUploadParams = {}) {
       return false;
     }
 
+    setStatus("loading");
     try {
       const payload = generatePayload(files);
 
@@ -54,11 +58,15 @@ function useUpload({ onSuccess }: useUploadParams = {}) {
     } catch (error) {
       alert("An error occured. Look up logs.");
       console.log(error);
+      setStatus("error");
+      return;
     }
+    setStatus("idle");
   };
 
   return {
     uploadFiles,
+    isLoading: status === "loading",
   };
 }
 
