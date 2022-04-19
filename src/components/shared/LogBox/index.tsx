@@ -18,6 +18,7 @@ const LogBox: React.FC<LogBoxProps> = ({ list }) => {
       <div
         className="bg-black w-full h-[400px] rounded-xl overflow-y-scroll p-4"
         ref={terminalRef}
+        id="logbox-terminal"
       >
         {list &&
           list.length &&
