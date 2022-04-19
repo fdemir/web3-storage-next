@@ -10,7 +10,7 @@ import LeafCorner from "~/components/shared/LeafCorner";
 const Home: NextPage = () => {
   const [files, setFiles] = useState<FileList>();
   const { logs } = useLogger();
-  const { uploadFiles } = useUpload();
+  const { uploadFiles, isLoading } = useUpload();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -23,6 +23,7 @@ const Home: NextPage = () => {
         <form
           className="shadow-md p-6 z-10 w-full bg-white rounded-xl mb-5"
           onSubmit={handleSubmit}
+          id="upload-form"
         >
           <LeafCorner />
           <span className="text-xl block font-semibold wmb-3">
@@ -36,7 +37,9 @@ const Home: NextPage = () => {
           <div className="my-6">
             <Uploader onUpload={setFiles} />
           </div>
-          <Button type="submit">Upload</Button>
+          <Button type="submit" disabled={isLoading}>
+            Upload
+          </Button>
         </form>
 
         <LogBox list={logs} />
